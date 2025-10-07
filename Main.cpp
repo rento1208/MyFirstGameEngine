@@ -1,5 +1,5 @@
 ﻿// MyFirstGame.cpp : アプリケーションのエントリ ポイントを定義します。
-//
+
 
 #include "Engine/framework.h"
 #include "MyFirstGame.h"
@@ -14,7 +14,7 @@
 
 
 HWND hWnd = nullptr;
-//idugvouwgou
+
 
 
 #define MAX_LOADSTRING 100
