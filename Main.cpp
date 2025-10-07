@@ -14,7 +14,7 @@
 
 
 HWND hWnd = nullptr;
-
+//idugvouwgou
 
 
 #define MAX_LOADSTRING 100
