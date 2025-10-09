@@ -82,9 +82,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
     
-	Fbx* fbx = new Fbx();
-    fbx->Load("Oden.fbx");
-
+	
     
     if (FAILED(hr))
     {
@@ -127,6 +125,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
         Direct3D::BeginDraw();
+
+        //pRootJobから、全てのオブジェクトの描画をする
+        pRootJob->DrawSub();
+
         Direct3D::EndDraw();
     }
 
