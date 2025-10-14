@@ -2,7 +2,11 @@
 
 
 #include "Engine/framework.h"
+#include <cstdlib>
+#include <mmsystem.h>
 #include "MyFirstGame.h"
+
+
 #include "Engine/Direct3D.h"
 #include "Engine/Camera.h"
 #include "Engine/Transform.h"
@@ -10,7 +14,7 @@
 #include "Engine/Input.h"
 #include "Engine/RootJob.h"
 
-
+#pragma comment(lib,"winmm.lib")
 HWND hWnd = nullptr;
 
 
@@ -101,12 +105,43 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             DispatchMessage(&msg);
         }
         //メッセージなし
+        timeBeginPeriod(1);
+        static DWORD countFps = 0;//FPS計測用カウンタ
+
+        static DWORD startTime = timeGetTime();//初回の時間を保存
+      
+        DWORD nowTime = timeGetTime();//現在の時間を取得
+        static DWORD lastUpdateTime = nowTime;
+        timeEndPeriod(1);
+
+
+        if (nowTime - startTime >= 1000)
+        {
+            std::string str = "FPS:" + std::to_string(nowTime - startTime)
+                + "," + std::to_string(countFps);
+            SetWindowTextA(hWnd, str.c_str());
+            countFps = 0;
+            startTime = nowTime;
+        }
+
+        if (nowTime - lastUpdateTime <= 1000.0f / 60)
+        {
+            continue;
+        }
+        lastUpdateTime = nowTime;
+       
+       
+
+        countFps++;
+        //startTime - nowTime;
+
+        
 
 		//ゲームの処理
 		Camera::Update(); // カメラの更新
 		Input::Update(); // 入力の更新
         
-        pRootJob->Update();
+        pRootJob->UpdateSub();
         if (Input::IsMouseButtonDown(0))
             OutputDebugStringA("左クリック押した\n");
         if (Input::IsMouseButtonUp(0))

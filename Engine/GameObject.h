@@ -20,6 +20,14 @@ public:
 	virtual void Draw() = 0;
 	virtual void Release() = 0;
 	void DrawSub();
+	void UpdateSub();
+	template<class T>
+	void Instantiate(GameObject* parent)
+	{
+		T* obj = new T(parent);
+		obj->Initialize();
+		childList_.push_back(obj);
+	}
 protected:
 	list<GameObject*> childList_;
 	Transform	transform_;
