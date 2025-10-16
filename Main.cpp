@@ -167,7 +167,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         Direct3D::EndDraw();
     }
 
-    pRootJob->Release();
+    pRootJob->ReleaseSub();
 	Input::Release();
     Direct3D::Release();
 
